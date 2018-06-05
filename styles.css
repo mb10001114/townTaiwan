@@ -153,6 +153,7 @@ body {
 
   cursor: pointer;
   outline: none;
+  font-size: 8px;
 }
 
 .button:hover {

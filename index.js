@@ -6,16 +6,17 @@ $(window).bind('load', function(){
 
   var colorMap = [
     "#fff",
-    "#27BBEE",
-    "#88B14B",
-    "#F5A623",
-    "#FF7A7A"
+    "#0295DB",
+    "#00DA70",
+    "#FCC500",
+	"#DE8026",
+    "#FF2C1E"
   ];
 
   var cities=[];
 
-  $('.fil7').each( function(key, value) {
-    $(this).attr('id', 'kkk'+key);
+  $('.fil2').each( function(key, value) {
+    $(this).attr('data-val', 'kkk'+key);
     cities.push({id:"kkk"+key,lv:0});
   })
 
@@ -32,7 +33,7 @@ $(window).bind('load', function(){
 
   // city area
   cities.map(function (city) {
-    var doms = [].map.call(document.querySelectorAll('[id^=' + city.id + ']'), function (ele) { return ele; });
+    var doms = [].map.call(document.querySelectorAll('[data-val^=' + city.id + ']'), function (ele) { return ele; });
     
     doms.map(function (dom) {
       dom.style.fill = '#fff';
@@ -75,13 +76,14 @@ $(window).bind('load', function(){
     var svgString = new XMLSerializer().serializeToString(document.querySelector('#map'));
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext("2d");
-    canvas.width = 750;
-    canvas.height = 1124;
+    canvas.width = 2480;
+    canvas.height = 3508;
     canvg(canvas, svgString);
     canvas.toBlob(function (blob) { saveAs(blob, 'taiwan.png'); });
   });
 
   function bindContextMenu (e) {
+	$('#name_cover p').html( '@'+e.target.id );
     console.log(e)
     // 180: context menu width, 20: buffer
     // 165: context menu height, 30: buffer
@@ -92,8 +94,7 @@ $(window).bind('load', function(){
     contextMenu.style.top = y + 'px';
     contextMenu.style.left= x + 'px';
     contextMenu.style.display = 'block';
-    currentId = (e.target.id);
-    console.log(currentId)
+    currentId = (e.target.dataset.val);
   }
 
   function calcTotal () {
@@ -105,7 +106,7 @@ $(window).bind('load', function(){
   }
 
   function changeCityColor (lv) {
-    var doms = [].map.call(document.querySelectorAll('[id=' + currentId + ']'), function (ele) { return ele; });
+    var doms = [].map.call(document.querySelectorAll('[data-val=' + currentId + ']'), function (ele) { return ele; });
     doms.map(function (dom) {
       dom.style.fill = colorMap[lv];
     });

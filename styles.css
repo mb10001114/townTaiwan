@@ -100,24 +100,28 @@ body {
   background: #eee;
 }
 
-.red-border {
-  border-right: 3px solid #FF7A7A;
-}
-
-.yellow-border {
-  border-right: 3px solid #F5A623;
-}
-
-.green-border {
-  border-right: 3px solid #88B14B;
-}
-
-.blue-border {
-  border-right: 3px solid #27BBEE;
-}
-
-.white-border {
+.l0-border {
   border-right: 3px solid #fff;
+}
+
+.l1-border {
+  border-right: 3px solid #0295DB;
+}
+
+.l2-border {
+  border-right: 3px solid #00DA70;
+}
+
+.l3-border {
+  border-right: 3px solid #FCC500;
+}
+
+.l4-border {
+  border-right: 3px solid #DE8026;
+}
+
+.l5-border {
+  border-right: 3px solid #FF2C1E;
 }
 
 .lockedMenu {

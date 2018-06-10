@@ -15,7 +15,7 @@ $(window).bind('load', function(){
 
   var cities=[];
 
-  $('.fil2').each( function(key, value) {
+  $('.fil1').each( function(key, value) {
     $(this).attr('data-val', 'kkk'+key);
     cities.push({id:"kkk"+key,lv:0});
   })

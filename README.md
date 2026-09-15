@@ -2,7 +2,7 @@
 
 你去過台灣多少地方？點亮 **368 個鄉鎮市區**，看看自己的台灣地圖長什麼樣子。
 
-[![制鄉鎮等級台灣版](https://i.imgur.com/g3Y34Mt.png)](https://mb10001114.github.io/townTaiwan/)
+[![制鄉鎮等級台灣版](https://i.meee.com.tw/EwiR6Qa.png)](https://mb10001114.github.io/townTaiwan/)
 
 > 👉 線上試玩：<https://mb10001114.github.io/townTaiwan/>
 

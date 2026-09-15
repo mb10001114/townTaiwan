@@ -1,12 +1,161 @@
-Taiwan Travel Level
-===
+# 制鄉鎮等級・台灣 (Town Taiwan Level)
 
-How many place you live since you are kid? Show me your taiwan travel level!
+你去過台灣多少地方？點亮 **368 個鄉鎮市區**，看看自己的台灣地圖長什麼樣子。
 
-[![](https://i.imgur.com/g3Y34Mt.png)](https://travel.tonypai.com.tw/)
+[![制鄉鎮等級台灣版](https://i.imgur.com/g3Y34Mt.png)](https://mb10001114.github.io/townTaiwan/)
 
-![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png)
---- | --- | --- | --- | --- |
-Latest ✔ | Latest ✔ |  Latest ✔ | 11+ ✔ | Latest ✔ |
+> 👉 線上試玩：<https://mb10001114.github.io/townTaiwan/>
 
-> Refer: [Japanex](https://zhung.com.tw/japanex/)
+這是「制鄉鎮等級台灣版」的**升級版**：整張地圖重繪成圓潤的卡通風格，改成「先點縣市放大、再一格一格填」的兩段式操作，並加上完成度統計、自動存檔與圖片輸出。
+
+---
+
+## 這一版做了什麼
+
+| 項目 | 舊版 | 這一版 |
+| --- | --- | --- |
+| 操作方式 | 直接點細小的鄉鎮邊界，常常點錯 | 先點縣市 → 放大 → 再點鄉鎮，手機也按得到 |
+| 鄉鎮數量 | 349 個（19 個因原始檔缺座標而消失） | **368 個全到齊** |
+| 邊界 | CorelDRAW 匯出的鋸齒線條 | 拓樸簡化 + 圓角平滑，海浪底紋與 2.5D 立體厚度 |
+| 統計 | 只有一個總分 | 總分、總完成度、22 縣市各別完成度 |
+| 存檔 | 無，重整就沒了 | localStorage 自動存，另可匯出／匯入 JSON |
+| 圖片 | canvg 產圖 | 原生 Canvas 輸出 1400px PNG，可署名 |
+| 裝置 | 桌機為主 | RWD，手機／平板專屬版面與觸控尺寸 |
+| 檔案 | HTML + CSS + JS + 外部函式庫 | **單一 HTML 檔，零相依** |
+
+---
+
+## 功能
+
+### 兩段式填色
+
+1. **全台視圖**：滑鼠移過縣市會浮起，點下去有彈跳回饋，接著平滑放大到該縣市，其他縣市淡出。
+2. **縣市視圖**：這時才顯示鄉鎮邊界與地名，點任一鄉鎮跳出等級選單。
+   - 太小不好點的區（例如台北市中正區）可以改用右側清單的色塊按鈕選取。
+   - 放大狀態下直接點旁邊淡出的縣市，可以馬上切過去。
+   - 「下一個未填 →」會自動跳到該縣市還沒填的鄉鎮，可以一路填完。
+
+### 六個等級
+
+| 等級 | 名稱 | 說明 | 顏色 |
+| :-: | --- | --- | --- |
+| 5 | 住宿 | 居住過 | `#FF6B6B` |
+| 4 | 宿泊 | 住宿過 | `#FF9A4D` |
+| 3 | 訪問 | 遊玩過 | `#FFD24C` |
+| 2 | 接地 | 休息、換車等 | `#4BDBA0` |
+| 1 | 通過 | 路過 | `#63C0F0` |
+| 0 | 以上皆非 | 還沒去過 | `#FFFFFF` |
+
+**總分** = 所有鄉鎮等級加總，滿分 `368 × 5 = 1840`。
+**完成度** = 等級 1 以上的鄉鎮數 ÷ 368。
+
+### 統計
+
+- 左上角：特大總分、已填 x / 368、完成百分比與進度條。
+- 右側（手機為底部抽屜）清單：22 縣市各自的完成度長條與 x / y，全部填完的縣市會變成金色底。點任一列直接跳到該縣市。
+- 某個縣市填滿會跳出慶祝提示。
+
+### 取名字
+
+第一次開啟會問「怎麼稱呼你？」（可以略過）。名字會顯示在標題下方，存成圖片時一併印在圖上，檔名也會帶上名字。點左上角的黃色標籤隨時可以改。
+
+### 存檔與輸出
+
+- **自動存檔**：每次填色後寫入 localStorage，關掉瀏覽器再開還在。
+- **匯出紀錄**：下載 JSON 備份，可帶到另一台裝置。
+- **匯入紀錄**：讀回 JSON，覆蓋現有紀錄。
+- **存成圖片**：輸出 1400px 寬的 PNG，含標題、名字、已填數與總分。
+- **清空**：確認後清除所有紀錄。
+
+### 鍵盤快捷鍵
+
+| 按鍵 | 動作 |
+| --- | --- |
+| `0` ~ `5` | 給目前選取的鄉鎮等級 |
+| `→` / `n` | 跳到下一個未填的鄉鎮 |
+| `←` | 上一個鄉鎮 |
+| `Esc` | 關閉等級選單；再按一次回全台灣 |
+
+---
+
+## 檔案結構
+
+```
+townTaiwan/
+└── index.html      # 全部都在這裡：HTML + CSS + JS + 地圖資料（約 900 KB）
+```
+
+沒有 build step、沒有 npm、沒有外部 JS 函式庫。唯一的外部請求是 Google Analytics（拿掉也完全不影響功能）。
+
+部署：把檔案放進 GitHub Pages 的分支即可；本機開發直接用瀏覽器打開 `index.html` 就能跑（localStorage 在 `file://` 下多數瀏覽器仍可用，若遇到限制可用 `python3 -m http.server` 起一個本機伺服器）。
+
+---
+
+## 資料格式
+
+### localStorage
+
+| key | 內容 |
+| --- | --- |
+| `townTaiwan.levels.v1` | 等級紀錄，`{"縣市\|鄉鎮": 1~5}`，等級 0 不會存 |
+| `townTaiwan.name` | 使用者名字（最多 12 字） |
+| `townTaiwan.nameAsked` | 是否已問過名字，避免每次開啟都跳視窗 |
+
+```json
+{
+  "臺北市|中正區": 5,
+  "花蓮縣|吉安鄉": 3,
+  "澎湖縣|馬公市": 4
+}
+```
+
+### 匯出的 JSON
+
+```json
+{
+  "app": "town-taiwan",
+  "version": 1,
+  "saved": "2026-09-15T04:21:00.000Z",
+  "levels": { "臺北市|中正區": 5 }
+}
+```
+
+匯入時 `levels` 物件或最外層直接是等級對照表都能讀；超出 1~5 範圍的值會被忽略。
+
+---
+
+## 地圖資料怎麼來的
+
+底圖沿用原始的 CorelDRAW 鄉鎮 SVG，但做了三件事：
+
+1. **補齊缺漏**　原始檔有 19 個鄉鎮的路徑資料是壞的（`<path d="蘭嶼鄉">` 這種寫法），等於畫不出來。
+   - 頭城鎮、口湖鄉、桃源區：用「縣市外框減掉其他鄉鎮」精準還原，形狀與真實邊界一致。
+   - 澎湖 6、金門 6、連江 4、綠島鄉、蘭嶼鄉、琉球鄉：原始檔完全沒有座標，改以卡通風格的島嶼造型呈現（金門本島、澎湖本島再用波浪線切分成各鄉鎮）。**位置與大小是示意性的，不代表真實地理比例。**
+2. **拓樸簡化**　用 Shapely 的 `coverage_simplify`（tolerance 1.8）整體簡化，共用邊界一起處理，所以相鄰鄉鎮之間不會出現裂縫或重疊。
+3. **圓角平滑**　對每個環做兩次 Chaikin 平滑，海岸線與鄉鎮界變得圓潤可愛；縣市外框則由該縣市所有鄉鎮聯集而成，永遠與鄉鎮邊界貼合。
+
+標籤位置用 pole of inaccessibility（`polylabel`）計算，確保地名落在區塊內部最寬的地方；太細長放不下的鄉鎮會自動不顯示文字，改用點選或右側清單辨識。
+
+---
+
+## 技術細節
+
+- 單一 SVG，縮放靠 `viewBox` 補間動畫（easeInOutCubic，620ms），尊重 `prefers-reduced-motion`。
+- 所有線條使用 `vector-effect: non-scaling-stroke`，放大後線寬維持一致，不會變成粗黑塊。
+- 縣市立體陰影是另一層位移的聯集路徑，位移量會隨縮放比例換算，遠近看起來厚度一致。
+- 地圖置中時會扣掉資訊卡、工具列、側邊清單佔用的範圍，所以台灣不會被介面蓋住。
+- 斷點 900px：以下切換成手機／平板版面（底部工具列、底部抽屜清單、兩欄等級選單；橫向時三欄）；`hover: none` 的裝置另外放大所有可點區域。
+- PNG 輸出不依賴 canvg：直接組一份內嵌樣式的 SVG 字串 → Blob → `drawImage` → `toBlob`。
+
+## 瀏覽器支援
+
+![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png)
+--- | --- | --- | --- |
+Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ |
+
+這一版用了 CSS 自訂屬性、`transform-box: fill-box`、`paint-order` 等新特性，**不再支援 IE**。
+
+## 致謝
+
+- 原始概念與縣市版：[tpai/taiwan-travel-level](https://github.com/tpai/taiwan-travel-level)（Tonypai 大出了縣制，不自覺就出了鄉鎮版啦）
+- 靈感來源：[Japanex 日本制度](https://zhung.com.tw/japanex/)
